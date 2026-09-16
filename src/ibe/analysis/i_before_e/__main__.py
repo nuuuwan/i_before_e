@@ -40,18 +40,24 @@ def analyze(s_i, s_e, s_c):
 
 LETTERS = "abcdefghijklmnopqrstuvwxyz"
 for s_i in LETTERS:
+    if s_i != "i":
+        continue
     for s_e in LETTERS:
+        if s_e != "e":
+            continue
         if s_i == s_e:
             continue
         for s_c in LETTERS:
+
             if s_c == s_i or s_c == s_e:
                 continue
 
             n_null, n_true, n_false = analyze(s_i, s_e, s_c)
-            if n_true + n_false > n_words * 0.01:
-                if n_true > 10 * n_false:
+            if n_true + n_false > n_words * 0.001:
+                if n_true > 2 * n_false:
+                    p_true = n_true / (n_true + n_false)
                     print(
-                        f"s_i='{s_i}', s_e='{s_e}', s_c='{s_c}': n_null={n_null}, n_true={n_true}, n_false={n_false}"
+                        f"{p_true:.0%} ({n_true + n_false}):"
+                        + f" '{s_i}' before '{s_e}' except after '{s_c}'"
                     )
-                    print(f"'{s_i}' before '{s_e}' except after '{s_c}'")
                     print()
