@@ -1,63 +1,69 @@
+from pathlib import Path
+
+from ibe.analysis.i_before_e.ErrorPlotMixin import ErrorPlotMixin
 from ibe.core.Word import Word
 
-words = Word.list()
-n_words = len(words)
 
+class IBeforeEAnalysis(ErrorPlotMixin):
+    GRAPH_FOLDER = Path("graphs")
 
-def rule(word, s_i, s_e, s_c):
-    s_ie = s_i + s_e
-    s_ei = s_e + s_i
-    s_cie = s_c + s_ie
-    s_cei = s_c + s_ei
+    def __init__(self):
+        self.words = Word.list()
+        self.examples = []
+        for word in self.words:
+            for index in range(len(word) - 1):
+                pair = word[index] + word[index + 1]
+                if pair in ("ie", "ei"):
+                    previous = word[index - 1] if index else None
+                    self.examples.append((pair, previous))
 
-    if s_ie not in word and s_ei not in word:
-        return None
+    def analyze(self, exception):
+        true_positive = sum(
+            pair == "ei" and previous == exception
+            for pair, previous in self.examples
+        )
+        true_negative = sum(
+            pair == "ie" and previous != exception
+            for pair, previous in self.examples
+        )
+        return true_positive + true_negative, len(self.examples) - (
+            true_positive + true_negative
+        )
 
-    if s_cie in word:
-        return False
-    if s_ei in word and not s_cei in word:
-        return False
-    return True
-
-
-def analyze(s_i, s_e, s_c):
-    n_null = 0
-    n_true = 0
-    n_false = 0
-    for word in words:
-        result = rule(word, s_i, s_e, s_c)
-        if result is None:
-            n_null += 1
-            continue
-
-        if result is True:
-            n_true += 1
-        else:
-            n_false += 1
-
-    return n_null, n_true, n_false
-
-
-LETTERS = "abcdefghijklmnopqrstuvwxyz"
-for s_i in LETTERS:
-    if s_i != "i":
-        continue
-    for s_e in LETTERS:
-        if s_e != "e":
-            continue
-        if s_i == s_e:
-            continue
-        for s_c in LETTERS:
-
-            if s_c == s_i or s_c == s_e:
+    def results(self):
+        results = []
+        for letter in "abcdefghijklmnopqrstuvwxyz":
+            candidate_words = sum(
+                letter + "ie" in word or letter + "ei" in word
+                for word in self.words
+            )
+            if candidate_words < 30:
                 continue
+            correct, incorrect = self.analyze(letter)
+            accuracy = correct / (correct + incorrect)
+            results.append((letter, accuracy, correct, incorrect))
+        return sorted(results, key=lambda result: (-result[1], result[0]))
 
-            n_null, n_true, n_false = analyze(s_i, s_e, s_c)
-            if n_true + n_false > n_words * 0.001:
-                if n_true > 2 * n_false:
-                    p_true = n_true / (n_true + n_false)
-                    print(
-                        f"{p_true:.0%} ({n_true + n_false}):"
-                        + f" '{s_i}' before '{s_e}' except after '{s_c}'"
-                    )
-                    print()
+    @staticmethod
+    def print_better_than_c(results):
+        print("Exception letters that outperform C:\n")
+        for rank, (letter, accuracy, correct, incorrect) in enumerate(
+            results, start=1
+        ):
+            if letter == "c":
+                break
+            total = correct + incorrect
+            print(
+                f"{rank}. I before E except after {letter.upper()}: "
+                f"{accuracy:.1%} ({correct}/{total})"
+            )
+
+    def run(self):
+        results = self.results()
+        self.GRAPH_FOLDER.mkdir(exist_ok=True)
+        self.print_better_than_c(results)
+        self.plot_all(results)
+        print(f"\nGraphs written to {self.GRAPH_FOLDER}/")
+
+
+IBeforeEAnalysis().run()
