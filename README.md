@@ -41,16 +41,16 @@ Nine eligible letters produce fewer errors than C. C is included as the final ro
 
 | Letter | Accuracy | TP, with examples | FP, with examples | FN, with examples | TN |
 | --- | ---: | --- | --- | --- | ---: |
-| W | 76.9% | 47: `DEADWEIGHT`, `WEIRD`, `WEIGHTS` | 15: `HOWIE`, `WIELD`, `WIELDED` | 473: `SEIN`, `HEIRS`, `EIRE` | 1,578 |
-| B | 75.3% | 21: `BEIJING`, `DABEI`, `ALBEIT` | 22: `ZOMBIE`, `RUBIES`, `AMBIENT` | 499: `NEIGHBORHOOD`, `NEIGHBORING`, `RECEIVERS` | 1,571 |
-| H | 74.8% | 56: `SHEILA`, `HEINOUS`, `HEIFER` | 69: `ACHIEVEMENT`, `HEALTHIER`, `HIEROGLYPHICS` | 464: `LEIGH`, `PEI`, `REIS` | 1,524 |
-| M | 74.5% | 16: `ALLGEMEINE`, `MEISSNER`, `GEMEINSCHAFT` | 34: `ENEMIES`, `PREMIERS`, `PREMIERSHIP` | 504: `FORFEITURE`, `LEIBNIZ`, `LEIPZIG` | 1,559 |
-| S | 74.1% | 28: `HUSSEIN`, `SEIDEL`, `CONSEIL` | 56: `FANTASIES`, `SIE`, `BIOPSIES` | 492: `REINFORCE`, `WELLBEING`, `RHEIMS` | 1,537 |
-| G | 74.0% | 5: `GEIGER`, `GEISHA`, `AGEING` | 35: `ORGIES`, `BOOGIE`, `METHODOLOGIES` | 515: `REIHE`, `BIRTHWEIGHT`, `WELLBEING` | 1,558 |
-| N | 73.4% | 34: `NEI`, `NEIGHBOURS`, `HOMOGENEITY` | 77: `NIECE`, `INCONVENIENCES`, `NIE` | 486: `VEILS`, `BEIN`, `RHEIMS` | 1,516 |
-| V | 72.5% | 12: `VEINS`, `UVEITIS`, `VEILED` | 73: `PURVIEW`, `VIEWERS`, `INTERVIEWS` | 508: `SOVEREIGNTY`, `RECUEIL`, `LEICESTER` | 1,520 |
-| P | 72.4% | 6: `PEI`, `TAIPEI`, `PEINTURE` | 70: `SPIE`, `MASTERPIECES`, `FRONTISPIECE` | 514: `FINKELSTEIN`, `HOMOCYSTEINE`, `O'NEIL` | 1,523 |
-| **C** | **72.0%** | **35:** `CONCEIVED`, `CONCEIVE`, `CONCEITS` | **107:** `LATENCIES`, `PROFICIENCY`, `INSUFFICIENT` | **485:** `EISENSTEIN`, `BEIGE`, `WEIL` | **1,486** |
+| W | 76.9% | 47: `LIGHTWEIGHT`, `OUTWEIGH`, `WEIGHTY` | 15: `WIELD`, `WIELDED`, `UNWIELDY` | 473: `PROTEIN`, `NEITHER`, `RECEIVED` | 1,578 |
+| B | 75.3% | 21: `BEING`, `ALBEIT`, `BEIGE` | 22: `BABIES`, `HOBBIES`, `RABIES` | 499: `HEIGHT`, `FOREIGN`, `RECEIVE` | 1,571 |
+| H | 74.8% | 56: `THEIR`, `HEIGHT`, `HEIR` | 69: `CHIEF`, `ACHIEVE`, `SHIELD` | 464: `WEIGHT`, `PROTEIN`, `SEEING` | 1,524 |
+| M | 74.5% | 16: `MEIOSIS`, `MEIOTIC` | 34: `ENEMIES`, `ECONOMIES`, `ARMIES` | 504: `EITHER`, `NEITHER`, `REIGN` | 1,559 |
+| S | 74.1% | 28: `SEIZED`, `SEIZURE`, `SEISMIC` | 56: `EASIER`, `SIEGE`, `SIEVE` | 492: `BEING`, `HEIGHT`, `FOREIGN` | 1,537 |
+| G | 74.0% | 5: `AGEING` | 35: `STRATEGIES`, `TECHNOLOGIES`, `ENERGIES` | 515: `RECEIVED`, `PROTEIN`, `EIGHT` | 1,558 |
+| N | 73.4% | 34: `NEITHER`, `NEIGHBORHOOD`, `NEIGHBOR` | 77: `COMPANIES`, `DENIED`, `CONVENIENT` | 486: `THEIR`, `WEIGHT`, `SEEING` | 1,516 |
+| V | 72.5% | 12: `VEIN`, `SURVEILLANCE`, `VEIL` | 73: `VIEW`, `REVIEW`, `MOVIE` | 508: `EITHER`, `NEIGHBORHOOD`, `REIGN` | 1,520 |
+| P | 72.4% | 6 | 70: `PIECE`, `OCCUPIED`, `RECIPIENT` | 514: `THEIR`, `RECEIVE`, `HEIGHT` | 1,523 |
+| **C** | **72.0%** | **35:** `RECEIVE`, `CEILING`, `RECEIPT` | **107:** `SOCIETY`, `SCIENCE`, `ANCIENT` | **485:** `WEIGHT`, `NEITHER`, `PROTEIN` | **1,486** |
 
 The baseline “i before e” rule is correct for 75.4% of these spelling decisions. “W” wins because its 47 additional true positives exceed its 15 additional false positives, reducing total misclassifications by 32. “C,” despite owning the rhyme, produces 72 more misclassifications than using no exception at all.
 
